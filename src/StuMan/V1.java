@@ -13,7 +13,6 @@ class Student extends Person{
 }
 class SM implements selectC{
 	Scanner scan  = new Scanner(System.in);
-	Random ran = new Random();
 	public int add(Student[] a,int o) {
 		System.out.println("输入学生ID：");
 		a[o].id = scan.nextLong();
@@ -105,11 +104,15 @@ public class V1 {
 			System.out.println("4.删除学生信息");
 			System.out.println("5.修改学生信息");
 			System.out.println("6.返回上一级");
-			stu[o] = new Student();
 			int s = scan.nextInt();
 			if(s == 1) {
-				sm.add(stu,o);
-				o++;
+				stu[o] = new Student();
+				int l=sm.add(stu,o);
+				if(l==1)
+				{
+					o++;
+				}
+				else continue;
 			}if(s == 2) {
 				sm.show(stu,o);
 			}if(s == 3) {

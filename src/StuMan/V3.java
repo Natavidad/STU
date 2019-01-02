@@ -2,7 +2,7 @@ package StuMan;
 import java.util.*;
 import Manager.*;
 import ValueObject.*;
-public class V2 {
+public class V3 {
 	public static void main(String args[]) {
 		while(true) {
 			Print.P1();
@@ -78,4 +78,3 @@ public class V2 {
 			}
 	}
 }
-
