@@ -1,8 +1,6 @@
 package Manager;
-import ValueObject.*;
-
-public interface StudentOperate {    
-	public int add(Student[] a,int o); 
+public interface PersonOperate {    
+	public void add(); 
 	public void delete(); 
 	public void update(); 
 	public void findAll(); 

@@ -1,6 +1,5 @@
 package Manager;
 import java.util.ArrayList;
-
 import ValueObject.Worker;
 import ValueObject.Worker;
 public interface WorOpe {    
