@@ -36,12 +36,11 @@ class SM implements selectC{
 		System.out.println("***************************");
 	}
 	public boolean chongfu(Student[] a,int o) {
-		for(int i=0;i<o;i++) {
-			for(int j=i+1;j<a.length;j++) {
-				if(a[i].id == a[j].id) {
+		for(int i=0;i<o;i++) { 
+				if(a[i].id == a[o].id) {
 					return true;
 				}
-			}
+			
 		}
 		return false;
 	}
