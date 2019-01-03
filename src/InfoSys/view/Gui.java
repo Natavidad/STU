@@ -1,5 +1,6 @@
 package InfoSys.view;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.Iterator;
 import java.util.Set;
 import javax.swing.*;
@@ -68,11 +69,11 @@ public class Gui {
 	    Iterator it=custs.iterator();
 	    int i=0; 
 	    while(it.hasNext()){
-	      Student s=(Student) it.next();
-	      newData[i][0]=new Long(cust.getId()).toString();
-	      newData[i][1]=cust.getName();
-	      newData[i][2]=cust.getAddr();
-	      newData[i][3]=new Integer(cust.getAge()).toString();
+	      Student s=(Student)it.next();
+	      newData[i][0]=new Long(s.id).toString();
+	      newData[i][1]=s.name;
+	      newData[i][2]=new Float(s.score).toString();
+	      newData[i][3]=new Integer(s.age).toString();
 	      i++; 
 	    }
 	    tableModel.setDataVector(newData,tableHeaders);
@@ -93,11 +94,14 @@ public class Gui {
 	  }
 	  
 	  /** 获得单个客户面板custPan上用户输入的客户信息 */
-	  public Customer getCustomerOnCustPan(){
+	  public Student getCustomerOnCustPan(){
 	    try{
-	      return new Customer(Long.parseLong(idTf.getText().trim()),
-	        nameTf.getText().trim(),addrTf.getText().trim(),
-	        Integer.parseInt(ageTf.getText().trim()));
+	    	Student s = new Student();
+	    	s.id = Long.parseLong(idTf.getText().trim());
+	    	s.name = nameTf.getText().trim();
+	    	s.age = Integer.parseInt(ageTf.getText().trim());
+	    	s.score = Float.parseFloat(scoreTf.getText().trim());
+	    	return s;
 	    }catch(Exception e){
 	      updateLog(e.getMessage());
 	      return null; 
@@ -110,13 +114,13 @@ public class Gui {
 	  }
 	  
 	  /** 构造方法 */
-	  public StoreGui(){
+	  public Gui(){
 	    buildDisplay();
 	  }
 	  
 	  /** 创建图形界面 */
 	  private void buildDisplay(){
-	   frame=new JFrame("商店的客户管理系统");
+	   frame=new JFrame("信息管理系统");
 	   buildSelectionPanel();
 	   buildCustPanel();
 	   buildAllCustPanel();
@@ -124,8 +128,8 @@ public class Gui {
 	   
 	   /** carPan采用CardLayout布局管理器，包括custPan和allCustPan两张卡片 */
 	   cardPan.setLayout(card);
-	   cardPan.add(custPan,"customer");
-	   cardPan.add(allCustPan,"allcustomers");
+	   cardPan.add(custPan,"student");
+	   cardPan.add(allCustPan,"allstudents");
 	   //向主窗体中加入各种面板
 	   contentPane=frame.getContentPane();
 	   contentPane.setLayout(new BorderLayout());
@@ -138,7 +142,11 @@ public class Gui {
 	  }
 	 
 	  /** 创建选择面板selPan */ 
-	  private void buildSelectionPanel(){…}
+	  private void buildSelectionPanel(){
+		  selPan.setLayout(new BorderLayout());
+		  selPan.add(custBt,BorderLayout.WEST);
+		  selPan.add(allCustBt,BorderLayout.EAST);
+	  }
 	  /** 为选择面板selPan中的两个按钮注册监听器 */
 	  public void addSelectionPanelListeners(ActionListener a[]){
 	   int len=a.length;
@@ -148,7 +156,21 @@ public class Gui {
 	 }
 	  
 	  /**　创建单个客户custPan面板 */
-	  private void buildCustPanel(){…}
+	  private void buildCustPanel(){
+		  custPan.setLayout(new GridLayout(6,2));
+		  custPan.add(idLb);
+		  custPan.add(idTf);
+		  custPan.add(nameLb);
+		  custPan.add(nameTf);
+		  custPan.add(ageLb);
+		  custPan.add(ageTf);
+		  custPan.add(scoreLb);
+		  custPan.add(scoreTf);
+		  custPan.add(getBt);
+		  custPan.add(updBt);
+		  custPan.add(addBt);
+		  custPan.add(delBt);
+	  }
 	  
 	  /** 为单个客户面板custPan中的4个按钮注册监听器 */
 	  public void addCustPanelListeners(ActionListener a[]){
@@ -174,6 +196,9 @@ public class Gui {
 	  }
 	  
 	  /** 创建日志面板*/
-	  private void buildLogPanel(){…}
-	}
+	  private void buildLogPanel(){
+		  logPan.setLayout(new BorderLayout());
+		  logPan.add(logLb);
+		  logPan.add(logSp);
+	  }
 }
