@@ -1,6 +1,6 @@
 package ValueObject;
 public class Person {
-	long id;
-	String name;
-	int age;
+	public long id;
+	public String name;
+	public int age;
 }

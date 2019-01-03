@@ -1,5 +1,7 @@
 package InfoSys.view;
 import java.awt.*;
+import java.util.Iterator;
+import java.util.Set;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import ValueObject.*;
@@ -53,20 +55,20 @@ public class Gui {
 	      return;
 	    }
 	    idTf.setText(new Long(s.id).toString());
-	    nameTf.setText(cust.getName().trim());
-	    addrTf.setText(cust.getAddr().trim());
-	    ageTf.setText(new Integer(cust.getAge()).toString());
+	    nameTf.setText(s.name.trim());
+	    ageTf.setText(new Integer(s.age).toString());
+	    scoreTf.setText(new Float(s.score).toString());
 	  }
 	  
 	  /** 显示所有客户面板 allCustPan */
 	  public void refreshAllCustPan(Set custs){
-	    showCard("allcustomers");
+	    showCard("allstudents");
 	    String newData[][];
 	    newData=new String[custs.size()][4];
 	    Iterator it=custs.iterator();
 	    int i=0; 
 	    while(it.hasNext()){
-	      Customer cust=it.next();
+	      Student s=(Student) it.next();
 	      newData[i][0]=new Long(cust.getId()).toString();
 	      newData[i][1]=cust.getName();
 	      newData[i][2]=cust.getAddr();
