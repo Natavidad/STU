@@ -1,5 +1,6 @@
 package InfoSys.view;
 
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
 import java.rmi.server.UnicastRemoteObject;
@@ -65,7 +66,7 @@ public class InfoSysViewImpl extends UnicastRemoteObject implements infoSysView,
   /** 监听图形界面上【查询客户】按钮的ActionEvent的监听器 */
   transient ActionListener custGetHandler=new ActionListener(){
      public void actionPerformed(ActionEvent e){
-        StoreController sc;
+        InfoSysController sc;
         long custId;
         custId=gui.getCustIdOnCustPan();
         for(int i=0;i<storeControllers.size();i++)
@@ -91,7 +92,7 @@ public class InfoSysViewImpl extends UnicastRemoteObject implements infoSysView,
   /** 监听图形界面上【客户详细信息】按钮的ActionEvent的监听器 */
   transient ActionListener custDetailsPageHandler=new ActionListener(){
      public void actionPerformed(ActionEvent e){
-        StoreController sc;
+        InfoSysController sc;
         long custId;
         custId=gui.getCustIdOnCustPan();
         if(custId==-1){
@@ -108,7 +109,9 @@ public class InfoSysViewImpl extends UnicastRemoteObject implements infoSysView,
      }
   };
   /** 监听图形界面上【所有客户清单】按钮的ActionEvent的监听器 */
-  transient ActionListener allCustsPageHandler=new ActionListener(){…};
+  transient ActionListener allCustsPageHandler=new ActionListener(){
+	  
+  };
   
   /** 负责监听单个客户面板custPan上的所有按钮的ActionEvent事件的监听器 */  
   transient ActionListener custPanelListeners[] ={custGetHandler,custAddHandler,
