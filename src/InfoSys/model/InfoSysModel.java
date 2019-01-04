@@ -1,10 +1,10 @@
 package InfoSys.model;
 import java.rmi.*;
 import java.util.*;
-
 import InfoSys.view.infoSysView;
-import ValueObject.Student;
+import InfoSys.VO.*;
 public interface InfoSysModel extends Remote {
+	
   /** 注册视图，以便当模型修改了数据库中的客户信息时，可以回调视图的刷新界面的方法 */
   public void addChangeListener(infoSysView sv) throws Exception;
   /** 向数据库中添加一个新的客户 */
