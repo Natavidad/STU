@@ -1,6 +1,6 @@
 package InfoSys.Controller;
 import ValueObject.*;
-public interface InfoSysControllerImpl {
+public interface InfoSysController {
 	/** 处理根据ID查询客户的动作 */
 	  public void handleGetStudentGesture(long id);
 	  /** 处理添加客户的动作 */

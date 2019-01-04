@@ -1,12 +1,10 @@
 package InfoSys.view;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.Set;
-
 import InfoSys.Controller.*;
 import InfoSys.model.InfoSysModel;
 import InfoSys.model.InfoSysModelImpl;
@@ -30,7 +28,7 @@ public class InfoSysViewImpl extends UnicastRemoteObject implements infoSysView,
   }
   
   /** 注册控制器*/
-  public void addUserGestureListener(InfoSysControllerImpl b) throws Exception{
+  public void addUserGestureListener(InfoSysController b) throws Exception{
       storeControllers.add(b);
   }
   /** 在图形界面上展示参数display指定的数据 */
@@ -66,51 +64,89 @@ public class InfoSysViewImpl extends UnicastRemoteObject implements infoSysView,
   /** 监听图形界面上【查询客户】按钮的ActionEvent的监听器 */
   transient ActionListener custGetHandler=new ActionListener(){
      public void actionPerformed(ActionEvent e){
-        InfoSysController sc;
+    	 InfoSysController sc ;
         long custId;
         custId=gui.getCustIdOnCustPan();
         for(int i=0;i<storeControllers.size();i++)
         {
-        	sc=storeControllers.get(i);
-        	sc.handleGetCustomerGesture(custId);
+        	sc=(InfoSysController) storeControllers.get(i);
+        	sc.handleGetStudentGesture(custId);
         }
      }
   };
   
   /** 监听图形界面上【添加客户】按钮的ActionEvent的监听器 */
   transient ActionListener custAddHandler=new ActionListener(){
-	  
+	  public void actionPerformed(ActionEvent e){
+		  InfoSysController sc;
+	        Student custId;
+	        custId=gui.getCustomerOnCustPan();
+	        for(int i=0;i<storeControllers.size();i++)
+	        {
+	        	sc= (InfoSysController) storeControllers.get(i);
+	        	sc.handleAddStudentGesture(custId);
+	        }
+	     }
   };
   /** 监听图形界面上【删除客户】按钮的ActionEvent的监听器 */
   transient ActionListener custDeleteHandler=new ActionListener(){
-	  
+	  public void actionPerformed(ActionEvent e){
+		  InfoSysController sc ;
+	        Student custId;
+	        custId=gui.getCustomerOnCustPan();
+	        for(int i=0;i<storeControllers.size();i++)
+	        {
+	        	sc=(InfoSysController) storeControllers.get(i);
+	        	sc.handleDeleteStudentGesture(custId);
+	        }
+	     }
   };
   /** 监听图形界面上【更新客户】按钮的ActionEvent的监听器 */
   transient ActionListener custUpdateHandler=new ActionListener(){
-	  
+	  public void actionPerformed(ActionEvent e){
+		  InfoSysController sc;
+	        Student custId;
+	        custId=gui.getCustomerOnCustPan();
+	        for(int i=0;i<storeControllers.size();i++)
+	        {
+	        	sc=(InfoSysController) storeControllers.get(i);
+	        	sc.handleUpdateStudentGesture(custId);
+	        }
+	     }
   };
   /** 监听图形界面上【客户详细信息】按钮的ActionEvent的监听器 */
   transient ActionListener custDetailsPageHandler=new ActionListener(){
      public void actionPerformed(ActionEvent e){
-        InfoSysController sc;
+    	 InfoSysController sc;
         long custId;
         custId=gui.getCustIdOnCustPan();
         if(custId==-1){
           try{
-            showDisplay(new Customer(-1));
+            showDisplay(new Student());
           }catch(Exception ex){ex.printStackTrace();}
         }else{ 
           for(int i=0;i<storeControllers.size();i++)
           {            
-        	sc=storeControllers.get(i);
-            sc.handleGetCustomerGesture(custId);
+        	sc=(InfoSysController) storeControllers.get(i);
+            sc.handleGetStudentGesture(custId);
           }
         } 
      }
   };
   /** 监听图形界面上【所有客户清单】按钮的ActionEvent的监听器 */
   transient ActionListener allCustsPageHandler=new ActionListener(){
-	  
+	  public void actionPerformed(ActionEvent e){
+	        InfoSysControllerImpl sc = new InfoSysControllerImpl();
+	        long custId;
+	        custId=gui.getCustIdOnCustPan();
+	        if(custId==-1){
+	          try{
+	            showDisplay(new Student());
+	          }catch(Exception ex){ex.printStackTrace();}
+	        }else{ 
+	            sc.handleGetAllStudentsGesture();
+	        } 
+	     }
   };
   
   /** 负责监听单个客户面板custPan上的所有按钮的ActionEvent事件的监听器 */  
