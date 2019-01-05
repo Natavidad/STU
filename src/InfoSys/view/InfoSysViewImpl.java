@@ -11,10 +11,10 @@ import InfoSys.model.InfoSysModelImpl;
 import ValueObject.Student;
 public class InfoSysViewImpl extends UnicastRemoteObject implements infoSysView,Serializable{
   private transient Gui gui;
-  private InfoSysModelImpl storemodel;
+  private InfoSysModel storemodel;
   private Object display;
   private ArrayList storeControllers = new ArrayList(10);
-  public InfoSysViewImpl(InfoSysModelImpl model)throws Exception {
+  public InfoSysViewImpl(InfoSysModel model)throws Exception {
 	    try{
 		       storemodel=model;
 		       model.addChangeListener(this);  //Ïòmodel×¢²á×ÔÉí
