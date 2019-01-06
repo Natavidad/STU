@@ -2,6 +2,7 @@ package InfoSys.model;
 import java.rmi.*;
 import InfoSys.Controller.InfoSysController;
 import InfoSys.VO.*;
+import InfoSys.JDBC.*;
 import java.util.*;
 import InfoSys.view.infoSysView;
 public class InfoSysModelImpl implements InfoSysModel {
@@ -40,6 +41,7 @@ public class InfoSysModelImpl implements InfoSysModel {
   /** 根据参数id检索客户 */
   public Student getStudent(long id) throws Exception
   {
+	  
 	  return null;
   }
   /** 返回数据库中所有的客户清单 */
