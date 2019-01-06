@@ -9,17 +9,17 @@ import javax.sql.DataSource;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 public class JDBCUtils {
-    //ä½¿ç”¨é…ç½®æ–‡ä»¶çš„é»˜è®¤é…ç½®
+    //Ê¹ÓÃÅäÖÃÎÄ¼şµÄÄ¬ÈÏÅäÖÃ
     private static ComboPooledDataSource dataSource = new ComboPooledDataSource();
-    //äº‹åŠ¡ä¸“ç”¨è¿æ¥
+    //ÊÂÎñ×¨ÓÃÁ¬½Ó
     private static ThreadLocal<Connection> threadLocal = new ThreadLocal<>();
 
 
     /*
-     * è·å¾—Connectionå¯¹è±¡
+     * »ñµÃConnection¶ÔÏó
      */
     public static Connection getConnection() throws SQLException {
-        //å½“connectionä¸ç­‰äºnullè¯´æ˜å·²ç»è°ƒç”¨è¿‡beginTransaction()
+        //µ±connection²»µÈÓÚnullËµÃ÷ÒÑ¾­µ÷ÓÃ¹ıbeginTransaction()
         Connection connection = threadLocal.get();
         if(connection != null) {
             return connection;
@@ -29,7 +29,7 @@ public class JDBCUtils {
     }
 
     /*
-     * é‡Šæ”¾èµ„æº
+     * ÊÍ·Å×ÊÔ´
      */
     public static void close(Connection connection,Statement statement) {
         if (statement != null) {
@@ -78,21 +78,21 @@ public class JDBCUtils {
     }
 
     /*
-     * å¼€å¯äº‹åŠ¡
-     * 1.è·å–Connectionå¯¹è±¡
-     * 2.è®¾ç½®setAutoCommit(false)
-     * éœ€è¦ä¿è¯ä¸DAOä¸­ä½¿ç”¨çš„æ˜¯åŒä¸€ä¸ªConnectionå¯¹è±¡
+     * ¿ªÆôÊÂÎñ
+     * 1.»ñÈ¡Connection¶ÔÏó
+     * 2.ÉèÖÃsetAutoCommit(false)
+     * ĞèÒª±£Ö¤ÓëDAOÖĞÊ¹ÓÃµÄÊÇÍ¬Ò»¸öConnection¶ÔÏó
      */
     public static void beginTransaction() throws SQLException {
         /*
-         * 1.ç»™connectionèµ‹å€¼
-         * 2.è®¾ç½®setAutoCommit(false)
+         * 1.¸øconnection¸³Öµ
+         * 2.ÉèÖÃsetAutoCommit(false)
          */
 
         Connection connection = threadLocal.get();
 
         if (connection != null) {
-            throw new SQLException("å·²ç»å¼€å¯äº‹åŠ¡!");
+            throw new SQLException("ÒÑ¾­¿ªÆôÊÂÎñ!");
         }
 
         connection = getConnection();
@@ -102,16 +102,16 @@ public class JDBCUtils {
     }
 
     /*
-     * æäº¤äº‹åŠ¡
-     * 1.è·å–beginTransactionæä¾›çš„Connectionå¯¹è±¡
-     * 2.è°ƒç”¨Connection#commit
+     * Ìá½»ÊÂÎñ
+     * 1.»ñÈ¡beginTransactionÌá¹©µÄConnection¶ÔÏó
+     * 2.µ÷ÓÃConnection#commit
      */
     public static void commitTransaction() throws SQLException {
 
-        Connection connection = threadLocal.get();		//è·å–å½“å‰çº¿ç¨‹çš„ä¸“ç”¨è¿æ¥
+        Connection connection = threadLocal.get();		//»ñÈ¡µ±Ç°Ïß³ÌµÄ×¨ÓÃÁ¬½Ó
 
         if (connection == null) {
-            throw new SQLException("è¿˜æ²¡æœ‰å¼€å¯äº‹åŠ¡,æ— æ³•æäº¤ï¼");
+            throw new SQLException("»¹Ã»ÓĞ¿ªÆôÊÂÎñ,ÎŞ·¨Ìá½»£¡");
         }
 
         connection.commit();
@@ -122,7 +122,7 @@ public class JDBCUtils {
     public static void rollbackTransaction() throws SQLException {
         Connection connection = threadLocal.get();
         if (connection == null) {
-            throw new SQLException("è¿˜æ²¡æœ‰å¼€å¯äº‹åŠ¡,æ— æ³•å›æ»šï¼");
+            throw new SQLException("»¹Ã»ÓĞ¿ªÆôÊÂÎñ,ÎŞ·¨»Ø¹ö£¡");
         }
 
         connection.rollback();
@@ -132,16 +132,16 @@ public class JDBCUtils {
 
     public static void releaseConnection(Connection connection) throws SQLException {
         /*
-         * å¦‚æœæ˜¯äº‹åŠ¡zhuanyongConnectionå°±ä¸å…³é—­
-         * å¦‚æœä¸æ˜¯äº‹åŠ¡ä¸“ç”¨,é‚£ä¹ˆå°±è¦å…³é—­
+         * Èç¹ûÊÇÊÂÎñzhuanyongConnection¾Í²»¹Ø±Õ
+         * Èç¹û²»ÊÇÊÂÎñ×¨ÓÃ,ÄÇÃ´¾ÍÒª¹Ø±Õ
          */
 
         Connection con = threadLocal.get();
 
-        if(con == null) {	//è¯´æ˜æ²¡æœ‰å¼€å¯äº‹åŠ¡
+        if(con == null) {	//ËµÃ÷Ã»ÓĞ¿ªÆôÊÂÎñ
             connection.close();
         }
-        if(connection != con) {	//æœ‰äº‹åŠ¡,ä½†éœ€è¦åˆ¤æ–­å‚æ•°è¿æ¥æ˜¯å¦ä¸this.connectionç›¸ç­‰
+        if(connection != con) {	//ÓĞÊÂÎñ,µ«ĞèÒªÅĞ¶Ï²ÎÊıÁ¬½ÓÊÇ·ñÓëthis.connectionÏàµÈ
             connection.close();
         }
 

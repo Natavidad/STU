@@ -75,7 +75,7 @@ public class ModelDateBaseImpl implements Model{
             }
         }
         if(person == null){
-            throw new PersonNotFoundException("æ²¡æœ‰æ‰¾åˆ°idä¸º" + id + "çš„äºº!");
+            throw new PersonNotFoundException("Ã»ÓÐÕÒµ½idÎª" + id + "µÄÈË!");
         }
         return person;
     }

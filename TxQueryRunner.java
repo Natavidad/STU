@@ -14,9 +14,9 @@ public class TxQueryRunner extends QueryRunner {
     @Override
     public int[] batch(String sql, Object[][] params) throws SQLException {
         /*
-         * 1.寰楀埌杩炴帴
-         * 2.鎵ц鐖剁被鏂规硶
-         * 3.閲婃斁閾炬帴
+         * 1.得到连接
+         * 2.执行父类方法
+         * 3.释放链接
          */
         Connection connection = JDBCUtils.getConnection();
 

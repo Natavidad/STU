@@ -3,7 +3,7 @@
 	<!-- 默认配置，当使用ComboPooledDataSource无参构造器时，使用的就是这个配�?-->
 	<default-config>
 		<!-- 基本配置 -->
-		<property name="jdbcUrl">jdbc:mysql://localhost:3306/localhost_3306?useSSL=false&amp;serverTimezone=GMT</property>
+		<property name="jdbcUrl">jdbc:mysql://localhost:3306/mysql?useSSL=false&amp;serverTimezone=GMT</property>
 		<property name="driverClass">com.mysql.cj.jdbc.Driver</property>
 		<property name="user">root</property>
 		<property name="password">root</property>
@@ -18,10 +18,10 @@
 	</default-config>
 	<!-- 命名配置，new ComboPooledDataSource("oralce-config")时，使用的就是这个配�?-->
 	<named-config name="oracle-config">
-		<property name="jdbcUrl">jdbc:mysql://localhost:3306/localhost_3306</property>
+		<property name="jdbcUrl">jdbc:mysql://localhost:3306/mysql</property>
 		<property name="driverClass">com.mysql.jdbc.Driver</property>
 		<property name="user">root</property>
-		<property name="password">123</property>
+		<property name="password">root</property>
 		<property name="acquireIncrement">3</property>
 		<property name="initialPoolSize">10</property>
 		<property name="minPoolSize">2</property>
